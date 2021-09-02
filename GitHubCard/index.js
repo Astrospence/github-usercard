@@ -3,8 +3,6 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-let gitUserName = 'tetondan';
-
 const cardsDiv = document.querySelector('.cards');
 
 const getCard = gitUserName => {
@@ -30,8 +28,6 @@ const getCard = gitUserName => {
     console.log(err);
   })
 }
-
-getCard(gitUserName);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -56,7 +52,12 @@ getCard(gitUserName);
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Astrospence', 'bigknell', 'tetondan', 'dustinmyers', 'justsml', 'luishrd'];
+
+followersArray.forEach(index => {
+  getCard(index);
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -91,9 +92,9 @@ const cardMaker = obj => {
   profileLink.setAttribute('href', obj.profile);
   profileLink.setAttribute('target', '_blank');
   profileLink.textContent = `${obj.profile}`;
-  followers.textContent = `${obj.followers}`;
-  following.textContent = `${obj.following}`;
-  bio.textContent = `${obj.bio}`;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
 
   cardsDiv.appendChild(card);
   card.appendChild(img);
