@@ -3,21 +3,28 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-let gitUserName = 'Astrospence';
+let gitUserName = 'tetondan';
 
 const cardsDiv = document.querySelector('.cards');
 
-const getCard = (gitUserName) => {
+const getCard = gitUserName => {
   axios.get(`https://api.github.com/users/${gitUserName}`)
   .then(resp => {
     /*console.log(resp.data);*/
 
-    for (let i = 0; i < resp.data.length; i++) {
-      const user = {img: item.avatar_url, name: item.name, username: item.login, location: item.location, profile: item.html_url, followers: item.followers, following: item.following, bio: item.bio};
+    function userData (img, name, username, location, profile, followers, following, bio) {
+      this.img = img;
+      this.name = name;
+      this.username = username;
+      this.location = location;
+      this.profile = profile;
+      this.followers = followers;
+      this.following = following;
+      this.bio = bio;
+    }
+    const user = new userData(resp.data.avatar_url, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio);
       const newCard = cardMaker(user);
       cardsDiv.appendChild(newCard);
-
-    }
   })
   .catch(err => {
     console.log(err);
@@ -56,7 +63,9 @@ const followersArray = [];
     Using DOM methods and properties, create and return the following markup:*/
 
 
-function cardMaker(obj) {
+
+const cardMaker = obj => {
+
   const card = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -79,7 +88,6 @@ function cardMaker(obj) {
   location.textContent = `${obj.location}`;
   profile.textContent = document.createElement('a').setAttribute('href', `${obj.profile}`);
   followers.textContent = `${obj.followers}`;
-  following.textContent = `${obj.following}`;
   following.textContent = `${obj.following}`;
   bio.textContent = `${obj.bio}`;
 
