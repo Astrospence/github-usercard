@@ -22,7 +22,7 @@ const getCard = gitUserName => {
       this.following = following;
       this.bio = bio;
     }
-    const user = new userData(resp.data.avatar_url, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio);
+    const user = new userData(resp.data.avatar_url, resp.data.name, resp.data.login, resp.data.location, resp.data.html_url, resp.data.followers, resp.data.following, resp.data.bio);
       const newCard = cardMaker(user);
       cardsDiv.appendChild(newCard);
   })
@@ -73,6 +73,7 @@ const cardMaker = obj => {
   const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
@@ -85,8 +86,11 @@ const cardMaker = obj => {
   img.setAttribute('src', `${obj.img}`);
   h3.textContent = `${obj.name}`;
   userName.textContent = `${obj.username}`;
-  location.textContent = `${obj.location}`;
-  profile.textContent = document.createElement('a').setAttribute('href', `${obj.profile}`);
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = 'Profile:';
+  profileLink.setAttribute('href', obj.profile);
+  profileLink.setAttribute('target', '_blank');
+  profileLink.textContent = `${obj.profile}`;
   followers.textContent = `${obj.followers}`;
   following.textContent = `${obj.following}`;
   bio.textContent = `${obj.bio}`;
@@ -98,6 +102,7 @@ const cardMaker = obj => {
   cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
